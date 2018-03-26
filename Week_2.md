@@ -164,7 +164,7 @@ public class Test : MonoBehaviour {
         print("Hello!");
     }
 ```
-#编程实践，小游戏
+# 编程实践，小游戏
 >游戏内容： 井字棋 或 贷款计算器 或 简单计算器 等等<br>
 >技术限制： 仅允许使用 IMGUI 构建 UI<br>
 >作业目的：<br>
