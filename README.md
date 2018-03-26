@@ -43,4 +43,7 @@ public class Test : MonoBehaviour {
     }
 }
 ```
+>>得到的结果如下：
+
+>>发现，Awake与Start只出现了一次，但三个Update出现了几百次且不断上升。
 >*  常用事件包括 OnGUI() OnDisable() OnEnable()
