@@ -99,13 +99,47 @@ public class Test : MonoBehaviour {
 >* 查找对象
 >>编写代码如下：
 ```
-
+    //通过名字查找： 
+    public static GameObject MyFind(string name)
+    {
+        return GameObject.Find(name);
+    }
+    //通过标签查找： 
+    //单个对象：
+    public static GameObject MyFindWithTag(string tag)
+    {
+        return GameObject.FindWithTag(tag);
+    }
+    //多个对象：
+    public static GameObject[] MyFindGameObjectsWithTag(string tag)
+    {
+        GameObject.FindGameObjectsWithTag(tag);
+    }
 ```
 >* 添加子对象
 >>编写代码如下：
-
+```
+    public static GameObect MyCreatePrimitive(PrimitiveType type)
+    {
+        return GameObject.CreatePrimitive(type);
+    }
+```
 >* 遍历对象树
 >>编写代码如下：
-
+```
+    void MyConvenience (Transform child in transform) { 
+        Debug.Log(child.gameObject.name); 
+    }
+```
 >* 清除所有子对象
 >>编写代码如下：
+```
+    void MyDestroy (Transformchild in transform) {
+        Destroy(child.gameObject);
+    }
+```
+>
+>资源预设（Prefabs）与 对象克隆 (clone)
+>* 预设（Prefabs）有什么好处？<br>
+>* 预设与对象克隆 (clone or copy or Instantiate of Unity Object) 关系？<br>
+>* 制作 table 预制，写一段代码将 table 预制资源实例化成游戏对象。<br>
