@@ -91,4 +91,21 @@ public class Test : MonoBehaviour {
 >>3.table的部件：Transform, Cube, Box Collider, Mesh Renderer。<br>
 >
 >* 用 UML 图描述 三者的关系（请使用 UMLet 14.1.1 stand-alone版本出图）
-![验证2](https://github.com/wyj16340227/3D-unity/blob/master/%E9%AA%8C%E8%AF%812.png "验证2")
+![作业2-1](https://github.com/wyj16340227/3D-unity/blob/master/%E4%BD%9C%E4%B8%9A2-1.png "作业2-1")
+>>构图如下：
+![作业2-1](https://github.com/wyj16340227/3D-unity/blob/master/%E4%BD%9C%E4%B8%9A2-1.png "作业2-1")
+>
+>整理相关学习资料，编写简单代码验证以下技术的实现：
+>* 查找对象
+>>编写代码如下：
+```
+
+```
+>* 添加子对象
+>>编写代码如下：
+
+>* 遍历对象树
+>>编写代码如下：
+
+>* 清除所有子对象
+>>编写代码如下：
