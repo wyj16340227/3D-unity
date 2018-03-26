@@ -86,4 +86,9 @@ public class Test : MonoBehaviour {
 >* 描述下图中 table 对象（实体）的属性、table 的 Transform 的属性、 table 的部件
 >* * 本题目要求是把可视化图形编程界面与 Unity API 对应起来，当你在 Inspector 面板上每一个内容，应该知道对应 API。
 >* * 例如：table 的对象是 GameObject，第一个选择框是 activeSelf 属性。
-
+>>1.table的属性：Untagged。<br>
+>>2.table的transform的属性：位置(0, 0, 0); 旋转(0, 0, 0); 大小(1, 1, 1)。<br>
+>>3.table的部件：Transform, Cube, Box Collider, Mesh Renderer。<br>
+>
+>* 用 UML 图描述 三者的关系（请使用 UMLet 14.1.1 stand-alone版本出图）
+![验证2](https://github.com/wyj16340227/3D-unity/blob/master/%E9%AA%8C%E8%AF%812.png "验证2")
