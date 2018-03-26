@@ -93,7 +93,7 @@ public class Test : MonoBehaviour {
 >* 用 UML 图描述 三者的关系（请使用 UMLet 14.1.1 stand-alone版本出图）
 ![作业2-1](https://github.com/wyj16340227/3D-unity/blob/master/%E4%BD%9C%E4%B8%9A2-1.png "作业2-1")
 >>构图如下：
-![作业2-1](https://github.com/wyj16340227/3D-unity/blob/master/%E4%BD%9C%E4%B8%9A2-1.png "作业2-1")
+![作业2-2](https://github.com/wyj16340227/3D-unity/blob/master/%E4%BD%9C%E4%B8%9A2-2.png "作业2-2")
 >
 >整理相关学习资料，编写简单代码验证以下技术的实现：
 >* 查找对象
