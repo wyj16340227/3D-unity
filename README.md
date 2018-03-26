@@ -72,5 +72,9 @@ public class Test : MonoBehaviour {
 }
 ```
 >>得到结果如下：
-![验证2]()
+![验证2](https://github.com/wyj16340227/3D-unity/blob/master/%E9%AA%8C%E8%AF%812.png "验证2")
+>>由结果可以发现：最先调用`OnEnable()`函数一次，之后不停调用`OnGUI()`函数，当结束时，调用`OnDisable()`函数一次。
+
+
+
 
