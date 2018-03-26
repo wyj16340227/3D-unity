@@ -172,7 +172,7 @@ public class Test : MonoBehaviour {
 >* 提升阅读 API 文档能力
 >>1.井字棋：
 >>实现效果如下：
-![验证2](https://github.com/wyj16340227/3D-unity/blob/master/%E9%AA%8C%E8%AF%812.png "验证2")
+![作业2-3](https://github.com/wyj16340227/3D-unity/blob/master/%E4%BD%9C%E4%B8%9A2-3.png "作业2-3")
 >>关键代码如下：
 ```
     public GUIStyle TipsStyle;
@@ -295,10 +295,10 @@ public class Test : MonoBehaviour {
         }
     }
 ```
-[演示视频]()
+[演示视频](https://github.com/wyj16340227/3D-unity/blob/master/16340227%20%E4%BA%95%E5%AD%97%E6%A3%8B.mp4)
 >>2.贷款计算器：
 >>实现效果如下：
-![验证2](https://github.com/wyj16340227/3D-unity/blob/master/%E9%AA%8C%E8%AF%812.png "验证2")
+![作业2-4](https://github.com/wyj16340227/3D-unity/blob/master/%E4%BD%9C%E4%B8%9A2-4.png "作业2-4")
 >>关键代码如下：
 ```
         interest = 0f;          //利息
@@ -338,4 +338,4 @@ public class Test : MonoBehaviour {
             reload();
         }
 ```
->>[演示视频]()
+>>[演示视频](https://github.com/wyj16340227/3D-unity/blob/master/16340227%20%E8%B4%B7%E6%AC%BE%E8%AE%A1%E7%AE%97%E5%99%A8.mp4)
