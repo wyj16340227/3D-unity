@@ -44,6 +44,32 @@ public class Test : MonoBehaviour {
 }
 ```
 >>得到的结果如下：
-
+![验证1](https://github.com/wyj16340227/3D-unity/blob/master/%E9%AA%8C%E8%AF%81.png “验证1”)
 >>发现，Awake与Start只出现了一次，但三个Update出现了几百次且不断上升。
 >*  常用事件包括 OnGUI() OnDisable() OnEnable()
+>>编写代码如下：
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Test : MonoBehaviour {
+
+    private void OnDisable()
+    {
+        print("OnDisable!");
+    }
+
+    private void OnGUI()
+    {
+        print("OnGUI!");
+    }
+
+    private void OnEnable()
+    {
+        print("OnEnable!");
+    }
+}
+```
+>>得到结果如下：
+
