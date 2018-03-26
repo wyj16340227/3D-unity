@@ -170,9 +170,9 @@ public class Test : MonoBehaviour {
 >作业目的：<br>
 >* 提升 debug 能力
 >* 提升阅读 API 文档能力
->>1.井字棋：
->>实现效果如下：
-![作业2-3](https://github.com/wyj16340227/3D-unity/blob/master/%E4%BD%9C%E4%B8%9A2-3.png "作业2-3")
+>>1.井字棋：<br>
+>>实现效果如下：<br>
+![作业2-3](https://github.com/wyj16340227/3D-unity/blob/master/%E4%BD%9C%E4%B8%9A2-3.png "作业2-3")<br>
 >>关键代码如下：
 ```
     public GUIStyle TipsStyle;
@@ -297,8 +297,8 @@ public class Test : MonoBehaviour {
 ```
 [演示视频](https://github.com/wyj16340227/3D-unity/blob/master/16340227%20%E4%BA%95%E5%AD%97%E6%A3%8B.mp4)
 >>2.贷款计算器：
->>实现效果如下：
-![作业2-4](https://github.com/wyj16340227/3D-unity/blob/master/%E4%BD%9C%E4%B8%9A2-4.png "作业2-4")
+>>实现效果如下：<br>
+![作业2-4](https://github.com/wyj16340227/3D-unity/blob/master/%E4%BD%9C%E4%B8%9A2-4.png "作业2-4")<br>
 >>关键代码如下：
 ```
         interest = 0f;          //利息
