@@ -164,3 +164,178 @@ public class Test : MonoBehaviour {
         print("Hello!");
     }
 ```
+#编程实践，小游戏
+>游戏内容： 井字棋 或 贷款计算器 或 简单计算器 等等<br>
+>技术限制： 仅允许使用 IMGUI 构建 UI<br>
+>作业目的：<br>
+>* 提升 debug 能力
+>* 提升阅读 API 文档能力
+>>1.井字棋：
+>>实现效果如下：
+![验证2](https://github.com/wyj16340227/3D-unity/blob/master/%E9%AA%8C%E8%AF%812.png "验证2")
+>>关键代码如下：
+```
+    public GUIStyle TipsStyle;
+    private string[] play = {"O", "X", " "};        //存储玩家的表示方式，" "表示无玩家
+    private int currentPlayer;                      //当前玩家，0为O玩家；1为X玩家
+    private int[ , ] cheese = new int[3, 3];        //存储当前棋盘状态
+    bool wrong_input;                               //若棋子下重复，则为正
+    int current_step;                               //当前棋盘棋子数目
+    int over;                                       //游戏是否有结果，1为一方胜出，2为平局，0为无结果
+```
+```
+    //判断是否胜利
+    private bool GameOver ()
+    {
+        //横向胜利
+        if (cheese[0, 0] == cheese[0, 1] && cheese[0, 1] == cheese[0, 2] && cheese[0, 0] != 2)
+        {
+            print("h");
+            return true;
+        }
+        if (cheese[1, 0] == cheese[1, 1] && cheese[1, 1] == cheese[1, 2] && cheese[1, 0] != 2)
+        {
+            print("h");
+            return true;
+        }
+        if (cheese[2, 0] == cheese[2, 1] && cheese[2, 1] == cheese[2, 2] && cheese[2, 0] != 2)
+        {
+            print("h");
+            return true;
+        }
+
+        //竖向胜利
+        if (cheese[0, 0] == cheese[1, 0] && cheese[1, 0] == cheese[2, 0] && cheese[0, 0] != 2)
+        {
+            print("h");
+            return true;
+        }
+        if (cheese[0, 1] == cheese[1, 1] && cheese[1, 1] == cheese[2, 1] && cheese[0, 1] != 2)
+        {
+            print("h");
+            return true;
+        }
+        if (cheese[0, 2] == cheese[1, 2] && cheese[1, 2] == cheese[2, 2] && cheese[0, 2] != 2)
+        {
+            print("h");
+            return true;
+        }
+
+        //斜向胜利
+        if (cheese[0, 0] == cheese[1, 1] && cheese[1, 1] == cheese[2, 2] && cheese[0, 0] != 2)
+        {
+            print("h");
+            return true;
+        }
+        if (cheese[0, 2] == cheese[1, 1] && cheese[1, 1] == cheese[2, 0] && cheese[0, 2] != 2)
+        {
+            print("h");
+            return true;
+        }
+
+        return false;
+    }
+
+    private void OnGUI()
+    {
+        //重新加载
+        if (GUI.Button(new Rect(200, 200, 100, 20), "开始!"))
+        {
+            reload();
+        }
+        //一方胜利
+        if (over == 1)
+        {
+            GUI.Label(new Rect(0, 0, 120, 30), "玩家：" + play[currentPlayer] + "取得胜利！", TipsStyle);
+        }
+        //平局
+        else if (over == 2)
+        {
+            GUI.Label(new Rect(0, 0, 120, 30), "平局！", TipsStyle);
+        }
+        else
+        {
+            GUI.Label(new Rect(0, 0, 100, 20), "井字棋", TipsStyle);
+            GUI.Label(new Rect(0, 20, 100, 20), "当前玩家: " + play[currentPlayer], TipsStyle);
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (GUI.Button(new Rect(100 + 30 * i, 100 + 30 * j, 30, 30), play[cheese[i, j]]))
+                    {
+                        //该位置已有棋子
+                        if (cheese[i, j] != 2)
+                        {
+                            wrong_input = true;
+                        }
+                        //该位置无棋子
+                        else
+                        {
+                            //下棋
+                            cheese[i, j] = currentPlayer;
+                            currentPlayer = (currentPlayer + 1) % 2;
+                            current_step++;
+                            //判断是否一方胜利
+                            if (GameOver())
+                            {
+                                over = 1;
+                                currentPlayer = (currentPlayer + 1) % 2;
+                            } else
+                            {
+                                //是否棋盘走满，平局
+                                if (current_step == 9)
+                                {
+                                    over = 2;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+```
+[演示视频]()
+>>2.贷款计算器：
+>>实现效果如下：
+![验证2](https://github.com/wyj16340227/3D-unity/blob/master/%E9%AA%8C%E8%AF%812.png "验证2")
+>>关键代码如下：
+```
+        interest = 0f;          //利息
+        loan = 0f;              //贷款金额
+        month = 0;              //还款期限
+        inputInterest = "";     //用户输入利息
+        inputLoan = "";         //用户输入贷款金额
+        inputMonth = "";        //用户输入还款期限
+        compute = false;        //是否计算
+        result = 0f;            //每月应还款
+```
+```
+        //如果需要计算
+        if (compute)
+        {
+            interest = double.Parse(inputInterest);
+            loan = double.Parse(inputLoan);
+            month = int.Parse(inputMonth);
+            result = (loan + loan * month * interest / 1200) / month;
+            compute = false;
+        }
+        GUI.Label(new Rect(0, 0, 100, 20), "贷款金额(元): ");
+        GUI.Label(new Rect(0, 20, 100, 20), "年利率(%): ");
+        GUI.Label(new Rect(0, 40, 100, 20), "还款期限(月): ");
+        GUI.Label(new Rect(0, 60, 200, 20), "每月应还(元): " + result.ToString());
+        inputLoan = GUI.TextField(new Rect(100, 0, 50, 20), inputLoan);
+        inputInterest = GUI.TextField(new Rect(100, 20, 50, 20), inputInterest);
+        inputMonth = GUI.TextField(new Rect(100, 40, 50, 20), inputMonth);
+        //当点击计算，将compute置为true，在下一次调用计算
+        if (GUI.Button(new Rect(50, 100, 50, 20), "计算"))
+        {
+            compute = true;
+        }
+        //当点击清零，重新加载所有数据
+        if (GUI.Button(new Rect(100, 100, 50, 20), "清除"))
+        {
+            reload();
+        }
+```
+>>[演示视频]()
