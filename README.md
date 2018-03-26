@@ -74,7 +74,16 @@ public class Test : MonoBehaviour {
 >>得到结果如下：
 ![验证2](https://github.com/wyj16340227/3D-unity/blob/master/%E9%AA%8C%E8%AF%812.png "验证2")
 >>由结果可以发现：最先调用`OnEnable()`函数一次，之后不停调用`OnGUI()`函数，当结束时，调用`OnDisable()`函数一次。
-
-
-
+>
+>查找脚本手册，了解 GameObject，Transform，Component 对象
+>* 分别翻译官方对三个对象的描述（Description）
+>>1.Transform:场景中的每个对象都有一个Transform。 它用于存储和操纵对象的位置，旋转和缩放。 每个Transform都可以有一个父元素，它允许您分层应用位置，旋转和缩放。 这是在“层次结构”窗格中显示的层次结构。 他们还支持枚举类，因此您可以使用以下方式循环访问子代。<br>
+>>2.GameObject:Unity场景中所有实体的基类。<br>
+>>注意：GameObject类中的许多变量已被删除。 例如，要访问csharp中的GameObject.renderer，请改用GetComponent <Renderer>（）。 在JS脚本中使用GetComponent。<Renderer>（）。<br>
+>>3.Component:所有附加到GameObjects的基类。<br>
+>>请注意，您的代码永远不会直接创建组件。 而是编写脚本代码，并将脚本附加到GameObject。<br>
+>
+>* 描述下图中 table 对象（实体）的属性、table 的 Transform 的属性、 table 的部件
+>* * 本题目要求是把可视化图形编程界面与 Unity API 对应起来，当你在 Inspector 面板上每一个内容，应该知道对应 API。
+>* * 例如：table 的对象是 GameObject，第一个选择框是 activeSelf 属性。
 
