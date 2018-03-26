@@ -153,12 +153,12 @@ public class Test : MonoBehaviour {
 >>组合模式可以让客户端像修改配置文件一样简单的完成本来需要流程控制语句来完成的功能。<br>
 >>2.编写代码如下：
 ```
-    父类：
+    //父类：
     void Start()
     {
         this.BroadcastMessage("MyHello");
     }
-    子类：
+    //子类：
     void MyHello()
     {
         print("Hello!");
