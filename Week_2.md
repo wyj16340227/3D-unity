@@ -338,6 +338,7 @@ public class Test : MonoBehaviour {
             reload();
         }
 ```
->>[演示视频](https://github.com/wyj16340227/3D-unity/blob/master/16340227%20%E8%B4%B7%E6%AC%BE%E8%AE%A1%E7%AE%97%E5%99%A8.mp4)
+>>[github视频链接](https://github.com/wyj16340227/3D-unity/blob/master/16340227%20%E8%B4%B7%E6%AC%BE%E8%AE%A1%E7%AE%97%E5%99%A8.mp4)
+>>[youku视频链接](http://v.youku.com/v_show/id_XMzQ5MzkwMzg0OA==.html)
 <iframe width="560" height="315" src="http://v.youku.com/v_show/id_XMzQ5MzkwMzg0OA==.html" frameborder="0" allowfullscreen></iframe>
 
