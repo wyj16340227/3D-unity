@@ -347,4 +347,6 @@ public class Test : MonoBehaviour {
     src="http://v.youku.com/v_show/id_XMzQ5MzkwMzg0OA=="
     frameborder="0" 
     allowfullscreen>
-</iframe
+</iframe>
+
+<iframe height=498 width=510 src="http://player.youku.com/embed/XMzQ5MzkwMzg0OA==" frameborder=0 allowfullscreen></iframe>
