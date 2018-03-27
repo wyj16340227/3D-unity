@@ -344,7 +344,7 @@ public class Test : MonoBehaviour {
 <iframe 
     width="800" 
     height="450" 
-    src="http://v.youku.com/v_show/id_XMzQ5MzkwMzg0OA==  "
+    src="http://v.youku.com/v_show/id_XMzQ5MzkwMzg0OA=="
     frameborder="0" 
     allowfullscreen>
 </iframe
