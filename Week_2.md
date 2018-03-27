@@ -341,12 +341,4 @@ public class Test : MonoBehaviour {
 >>[github视频链接](https://github.com/wyj16340227/3D-unity/blob/master/16340227%20%E8%B4%B7%E6%AC%BE%E8%AE%A1%E7%AE%97%E5%99%A8.mp4)<br>
 >>[youku视频链接](http://v.youku.com/v_show/id_XMzQ5MzkwMzg0OA==.html)
 
-<iframe 
-    width="800" 
-    height="450" 
-    src="http://v.youku.com/v_show/id_XMzQ5MzkwMzg0OA=="
-    frameborder="0" 
-    allowfullscreen>
-</iframe>
-
-<iframe height=498 width=510 src="http://player.youku.com/embed/XMzQ5MzkwMzg0OA==" frameborder=0 allowfullscreen></iframe>
+<iframe height=498 width=510 src="http://player.youku.com/embed/XMzQ5MzkwMzg0OA==" frameborder="0" allowfullscreen></iframe>
