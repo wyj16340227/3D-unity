@@ -295,12 +295,13 @@ public class Test : MonoBehaviour {
         }
     }
 ```
-[演示视频](https://github.com/wyj16340227/3D-unity/blob/master/16340227%20%E4%BA%95%E5%AD%97%E6%A3%8B.mp4)
+>>[github视频链接](https://github.com/wyj16340227/3D-unity/blob/master/16340227%20%E4%BA%95%E5%AD%97%E6%A3%8B.mp4)<br>
+>>[youku视频链接](http://v.youku.com/v_show/id_XMzQ5MzkwMzg1Mg==.html?from=s1.8-1-1.2)<br>
 >>2.贷款计算器：
 >>实现效果如下：<br>
 ![作业2-4](https://github.com/wyj16340227/3D-unity/blob/master/%E4%BD%9C%E4%B8%9A2-4.png "作业2-4")<br>
 >>关键代码如下：
-```
+```http://v.youku.com/v_show/id_XMzQ5MzkwMzg1Mg==.html?from=s1.8-1-1.2
         interest = 0f;          //利息
         loan = 0f;              //贷款金额
         month = 0;              //还款期限
@@ -339,6 +340,6 @@ public class Test : MonoBehaviour {
         }
 ```
 >>[github视频链接](https://github.com/wyj16340227/3D-unity/blob/master/16340227%20%E8%B4%B7%E6%AC%BE%E8%AE%A1%E7%AE%97%E5%99%A8.mp4)<br>
->>[youku视频链接](http://v.youku.com/v_show/id_XMzQ5MzkwMzg0OA==.html)
+>>[youku视频链接](http://v.youku.com/v_show/id_XMzQ5MzkwMzg0OA==.html)<br>
 
 <iframe height=498 width=510 src="http://player.youku.com/embed/XMzQ5MzkwMzg0OA==" frameborder="0" allowfullscreen></iframe>
