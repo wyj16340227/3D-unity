@@ -10,8 +10,8 @@ using UnityEngine;
 
 public class CubeMove : MonoBehaviour {
 
-    private float speed;
-    private float position;
+    private float speed;	//速度
+    private float position;	//位置
 
 	// Use this for initialization
 	void Start () {
