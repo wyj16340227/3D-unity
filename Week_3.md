@@ -55,9 +55,9 @@ public class CubeMove : MonoBehaviour {
 >> 大小比例为（以地球为1，直径1390000千米）；<br>
 木星 ：土星 ：天王星 ：海王星 ：地球 ：金星 ：火星 ：水星 ：太阳<br>
 1317 ：745 ： 65 ： 57 ： 1 ：0.86 ： 0.15 ：0.056 ： 1300000<br>
->> 2.构造太阳与九大行星，并调整大小<br>
+>> 2.构造太阳与九大行星，使用`3D贴图`构造`Materials`，之后适当调整距离及大小<br>
 >> 得到效果图如下：<br>
-
+![效果图1](https://github.com/wyj16340227/3D-unity/blob/master/%E9%AA%8C%E8%AF%812.png "效果图1")
 >> 3.编写函数，代码如下：
 ```
 using System.Collections;
