@@ -43,13 +43,65 @@ public class CubeMove : MonoBehaviour {
 	}
 ```
 >* 写一个程序，实现一个完整的太阳系，其他星球围绕太阳的转速必须不一样，且不在一个法平面上。
->> 在网上查阅资料可知，8大行星和太阳之间的距离比例为（以地球为1.0）；<br>
-水星 0.387<br>
-金星0.723<br>
-地球1.000<br>
-火星1.524<br>
-木星5.205<br>
-土星9.576<br>
-天王星19.18<br>
-海王星30.13<br>
+>> 1.在网上查阅资料可知，8大行星和太阳之间的距离比例为（以地球为1.0，距离太阳1496000000千米）；<br>
+水星Mercury 0.387<br>
+金星Venus 0.723<br>
+地球Earth 1.000<br>
+火星Mars 1.524<br>
+木星Jupiter 5.205<br>
+土星Saturn 9.576<br>
+天王星Uranus 19.18<br>
+海王星Neptune 30.13<br>
+>> 大小比例为（以地球为1，直径1390000千米）；<br>
+木星 ：土星 ：天王星 ：海王星 ：地球 ：金星 ：火星 ：水星 ：太阳<br>
+1317 ：745 ： 65 ： 57 ： 1 ：0.86 ： 0.15 ：0.056 ： 1300000<br>
+>> 2.构造太阳与九大行星，并调整大小<br>
+>> 得到效果图如下：<br>
 
+>> 3.编写函数，代码如下：
+```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Move : MonoBehaviour {
+
+    public Transform Sun;
+    public Transform Mercury;
+    public Transform Venus;
+    public Transform Earth;
+    public Transform Mars;
+    public Transform Jupiter;
+    public Transform Satune;
+    public Transform Uranus;
+    public Transform Neptune;
+    public float EarthRevolutionSpeed;
+    public float EarthRotateSpeed;
+
+	// Use this for initialization
+	void Start () {
+        EarthRevolutionSpeed = 1f;
+        EarthRotateSpeed = 1f;
+	}
+	
+	// Update is called once per frame
+	void Update () {
+        Mercury.RotateAround(Sun.position, new Vector3(0.1f, 1, 0), EarthRevolutionSpeed * 3 * Time.deltaTime);
+        Mercury.Rotate(new Vector3(1,2, 0), EarthRotateSpeed * 2 * Time.deltaTime);
+        Venus.RotateAround(Sun.position, new Vector3(0.2f, 1, 0), EarthRevolutionSpeed * 2.5f * Time.deltaTime);
+        Venus.Rotate(new Vector3(1, 2.5f, 0), EarthRotateSpeed * 2.5f* Time.deltaTime);
+        Earth.RotateAround(Sun.position, Vector3.up, EarthRevolutionSpeed);
+        Earth.Rotate(new Vector3(1, 1.732f, 0), EarthRotateSpeed);
+        Mars.RotateAround(Sun.position, new Vector3(0.12f, 1, 0), EarthRevolutionSpeed * 0.9f * Time.deltaTime);
+        Mars.Rotate(new Vector3(1, 1.3f, 0), EarthRotateSpeed * 2.7f * Time.deltaTime);
+        Jupiter.RotateAround(Sun.position, new Vector3(0.15f, 1, 0), EarthRevolutionSpeed * 0.87f * Time.deltaTime);
+        Jupiter.Rotate(new Vector3(1, 2.7f, 0), EarthRotateSpeed * 2.9f * Time.deltaTime);
+        Satune.RotateAround(Sun.position, new Vector3(0.19f, 1, 0), EarthRevolutionSpeed * 0.6f * Time.deltaTime);
+        Satune.Rotate(new Vector3(1, 1.7f, 0), EarthRevolutionSpeed * 27 * Time.deltaTime);
+        Uranus.RotateAround(Sun.position, new Vector3(-0.1f, 1, 0), EarthRevolutionSpeed * 0.55f * Time.deltaTime);
+        Uranus.Rotate(new Vector3(1, 3.5f, 0), EarthRotateSpeed * 4 * Time.deltaTime);
+        Neptune.RotateAround(Sun.position, new Vector3(-0.22f, 1, 0), EarthRevolutionSpeed * 0.1f * Time.deltaTime);
+        Neptune.Rotate(new Vector3(1, 1.3f, 0), EarthRevolutionSpeed * 7.9f * Time.deltaTime);
+    }
+}
+```
