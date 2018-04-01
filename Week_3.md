@@ -57,7 +57,7 @@ public class CubeMove : MonoBehaviour {
 1317 ：745 ： 65 ： 57 ： 1 ：0.86 ： 0.15 ：0.056 ： 1300000<br>
 >> 2.构造太阳与九大行星，使用`3D贴图`构造`Materials`，之后适当调整距离及大小<br>
 >> 得到效果图如下：<br>
-![效果图1](https://github.com/wyj16340227/3D-unity/blob/master/%E9%AA%8C%E8%AF%812.png "效果图1")
+![效果图1](https://github.com/wyj16340227/3D-unity/blob/master/%E6%95%88%E6%9E%9C%E5%9B%BE1.png "效果图1")
 >> 3.编写函数，代码如下：
 ```
 using System.Collections;
