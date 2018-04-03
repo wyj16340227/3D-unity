@@ -105,6 +105,7 @@ public class Move : MonoBehaviour {
     }
 }
 ```
+>> [演示视频](http://v.youku.com/v_show/id_XMzUxMTQ3Mzc5Mg==.html)
 # 编程实践
 >* 阅读以下游戏脚本
 >> 祭司和魔鬼<br>
@@ -551,3 +552,7 @@ public class Controller : MonoBehaviour
 ```
 >> 得到效果如下图：<br>
 ![DAP](http://imglf6.nosdn.127.net/img/S3F1ejdrdGNrNFhvbUJCZHNtczRDeEZIOFZkc0poZGw4aTM1RTJGTXlBNmRmUFhUUWdGTVRBPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0 "DAP")<br>
+>> 7.在网站上下载模型，替换`Demon`与`Priest`（恕我直言，并没有足够的资金支持我下载付费的船、海岸模型）<br>
+>> 得到效果图：<br>
+![模型](http://imglf6.nosdn.127.net/img/S3F1ejdrdGNrNFhvbUJCZHNtczRDeEZIOFZkc0poZGw4aTM1RTJGTXlBNmRmUFhUUWdGTVRBPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0 "模型")<br>
+>> [演示视频](http://v.youku.com/v_show/id_XMzUxMTQ3Mzc5Ng==.html)
