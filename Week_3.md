@@ -133,5 +133,6 @@ public class Move : MonoBehaviour {
 系统|失败|一边魔鬼数量超过牧师
 系统|重置|无
 <br>
->> 3.以`Sphere`作为`魔鬼`，以`Cube`作为`牧师`，以`Cube`作为`河岸`以及'船只'，以系统预设灯光直接作为`Light`，调整他们的大小，将他们放入`Recourse`资源文件夹下的`Prefabs`文件夹下作为预设对象，并为他们分别添加标签。<br>
+<br>
+>> 3.以`Sphere`作为`魔鬼`，以`Cube`作为`牧师`，以`Cube`作为`河岸`以及`船只`，以系统预设灯光直接作为`Light`，调整他们的大小，将他们放入`Recourse`资源文件夹下的`Prefabs`文件夹下作为预设对象，并为他们分别添加标签。<br>
 ![预设文件](https://github.com/wyj16340227/3D-unity/blob/master/%E9%A2%84%E8%AE%BE%E6%96%87%E4%BB%B6.png "预设文件")<br>
