@@ -472,4 +472,82 @@ public class Move : MonoBehaviour {
             }
         }
 ```
->> 6.
+>> 6. 关键代码：`Controller`
+>>- 使用`GUI`完成与用户的交互
+```
+public class Controller : MonoBehaviour
+{
+    Data instance;          //实例化对象
+    int result;             //是否结束
+
+    public Rect temp;
+
+    public void Start()
+    {
+        instance = gameObject.AddComponent<Data>() as Data;
+        result = 0;
+    }
+    public void OnGUI()
+    {
+	//船在移动时不接受访问
+       if (!instance.IsMoving())
+        {
+            result = instance.Charge();
+            print("result = " + result.ToString());
+        }
+
+        if (result == 0)
+        {
+            print("4");
+            if (GUI.Button(new Rect (Screen.width / 10 * 3.4f, Screen.height / 10 * 2f, 100, 30), "牧师上船"))
+            {
+                if (!instance.IsMoving())
+                {
+                    instance.PriestOnBoat();
+                }
+            }
+            if (GUI.Button(new Rect(Screen.width / 10 * 6, Screen.height / 10 * 2f, 100, 30), "恶魔上船"))
+            {
+                if (!instance.IsMoving())
+                {
+                    instance.DemonOnBoat();
+                }
+            }
+            if (GUI.Button(new Rect(Screen.width / 2 - 50, Screen.height / 10 * 3.5f, 100, 30), "启程"))
+            {
+                instance.Moving();
+            }
+            if (GUI.Button(new Rect (Screen.width / 2 - 50, Screen.height / 10 * 4.5f, 100, 30), "下船"))
+            {
+                instance.MoveToShore();
+            }
+            if (GUI.Button(new Rect(Screen.width / 4 * 3, Screen.height / 10 * 8f, 100, 30), "重新开始"))
+            {
+                instance.Reload();
+                result = 0;
+            }
+        }
+        else if (result == 2)
+        {
+            print("5");
+            GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 10 * 3f, 100, 30), "胜利");
+            if (GUI.Button(new Rect(Screen.width / 4 * 3, Screen.height / 10 * 8f, 100, 30), "重新开始")) {
+                result = 0;
+                instance.Reload();
+            }
+        }
+        else
+        {
+            print("6");
+            GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 10 * 3f, 100, 30), "牧师死亡");
+            if (GUI.Button(new Rect(Screen.width / 4 * 3, Screen.height / 10 * 8f, 100, 30), "重新开始"))
+            {
+                result = 0;
+                instance.Reload();
+            }
+        }
+    }
+}
+```
+>> 得到效果如下图：<br>
+![DAP](http://imglf6.nosdn.127.net/img/S3F1ejdrdGNrNFhvbUJCZHNtczRDeEZIOFZkc0poZGw4aTM1RTJGTXlBNmRmUFhUUWdGTVRBPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0 "DAP")<br>
