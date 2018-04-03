@@ -122,7 +122,354 @@ public class Move : MonoBehaviour {
 >> 1.首先，罗列出游戏中出现的事物及规则表：<br>
 `牧师`, `魔鬼`, `船只`, `海岸`, `灯光`<br>
 ![week3规则表](http://imglf3.nosdn.127.net/img/S3F1ejdrdGNrNFhvbUJCZHNtczRDN1lMcFV5RVBrQUU2a3ZtSVR6RGFMcjhSNG03YjBlWmRBPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0 "week3规则表")<br>
->> 3.以`Sphere`作为`魔鬼`，以`Cube`作为`牧师`，以`Cube`作为`河岸`以及`船只`，以系统预设灯光直接作为`Light`，调整他们的大小，将他们放入`Recourse`资源文件夹下的`Prefabs`文件夹下作为预设对象，并为他们分别添加标签。<br>
+>> 2.以`Sphere`作为`魔鬼`，以`Cube`作为`牧师`，以`Cube`作为`河岸`以及`船只`，以系统预设灯光直接作为`Light`，调整他们的大小，将他们放入`Recourse`资源文件夹下的`Prefabs`文件夹下作为预设对象，并为他们分别添加标签。<br>
 ![预设文件](https://github.com/wyj16340227/3D-unity/blob/master/%E9%A2%84%E8%AE%BE%E6%96%87%E4%BB%B6.png "预设文件")<br>
->> 4.关系图<br>
+>> 3.关系图<br>
 ![关系图1](http://imglf4.nosdn.127.net/img/S3F1ejdrdGNrNFhvbUJCZHNtczRDN25tVTc5WUQvaTk3ckROOVNhZC9yRFF5K0k0R2hkWVVnPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0 "关系图1")<br>
+>> 4.关键代码：`Data`
+>>- `Data`数据端：先构造基础数据
+```
+	private GameObject boatObject;
+        private Stack<GameObject> leftShoreDemon = new Stack<GameObject>();         //左岸魔鬼
+        private Stack<GameObject> leftShorePriest = new Stack<GameObject>();        //左岸牧师
+        private Stack<GameObject> rightShoreDemon = new Stack<GameObject>();        //右岸魔鬼
+        private Stack<GameObject> rightShorePriest = new Stack<GameObject>();       //右岸牧师
+        private Stack<GameObject> boat = new Stack<GameObject>();                   //船上数量
+        private bool boatPosition = true;                                           //船在右边
+        private bool isMoving = false;                                              //船在移动
+        Vector3 boatStartPosition = new Vector3(3, -3, 6);                          //以下为各个参考位置
+        Vector3 boatEndPosition = new Vector3(-3, -3, 6);
+        Vector3 leftShore = new Vector3(-10, -2, 0);
+        Vector3 rightShore = new Vector3(10, -2, 0);
+        Vector3 boatCurrentPosition;
+        Vector3 leftDemonPosition = new Vector3(-5.5f, 0, 0);
+        Vector3 leftPriestPosition = new Vector3(-10, 0, 0);
+        Vector3 rightDemonPosition = new Vector3(5.5f, 0, 0);
+        Vector3 rightPriestPosition = new Vector3(10, 0, 0);
+```
+>>- 通过初始化预设对象，生成`GameObject`_`Demon` `Priest`等
+```
+	public void Start()
+        {   
+            //左岸与右岸
+            Instantiate(Resources.Load("Prefabs/Shore"), leftShore, Quaternion.identity);
+            Instantiate(Resources.Load("Prefabs/Shore"), rightShore, Quaternion.identity);
+            //船
+            boatObject = Instantiate(Resources.Load("Prefabs/Boat"), boatStartPosition, Quaternion.identity) as GameObject;
+            //牧师与魔鬼，全部放在右岸
+            for (int i = 0; i < 3; ++i)
+            {
+                rightShoreDemon.Push(Instantiate(Resources.Load("Prefabs/Demon")) as GameObject);
+                rightShorePriest.Push(Instantiate(Resources.Load("Prefabs/Priest")) as GameObject);
+            }
+            //灯
+            Instantiate(Resources.Load("Prefabs/Light"));
+        }
+```
+>>- 调用方法
+```
+	public void Start()
+        {   
+            //左岸与右岸
+            Instantiate(Resources.Load("Prefabs/Shore"), leftShore, Quaternion.identity);
+            Instantiate(Resources.Load("Prefabs/Shore"), rightShore, Quaternion.identity);
+            //船
+            boatObject = Instantiate(Resources.Load("Prefabs/Boat"), boatStartPosition, Quaternion.identity) as GameObject;
+            //牧师与魔鬼，全部放在右岸
+            for (int i = 0; i < 3; ++i)
+            {
+                rightShoreDemon.Push(Instantiate(Resources.Load("Prefabs/Demon")) as GameObject);
+                rightShorePriest.Push(Instantiate(Resources.Load("Prefabs/Priest")) as GameObject);
+            }
+            //灯
+            Instantiate(Resources.Load("Prefabs/Light"));
+        }
+
+        //初始化
+        public void Reload()
+        {
+            //牧师与魔鬼全部放入右岸
+            while (leftShoreDemon.Count != 0)
+            {
+                rightShoreDemon.Push(leftShoreDemon.Pop());
+            }
+            while (leftShorePriest.Count != 0)
+            {
+                rightShorePriest.Push(leftShorePriest.Pop());
+            }
+            //牧师与魔鬼下船
+            while (boat.Count != 0)
+            {
+                if (boat.Peek().tag == "Demon")
+                {
+                    rightShoreDemon.Push(boat.Pop());
+                }
+                else
+                {
+                    rightShorePriest.Push(boat.Pop());
+                }
+            }
+            boatObject.transform.position = boatStartPosition;
+            boatPosition = true;
+            isMoving = false;
+        }
+
+        //左岸魔鬼上船
+        public bool LeftDemonToBoat()
+        {
+            if (leftShoreDemon.Count == 0 || boat.Count >= 2 || boatPosition || isMoving)
+            {
+                return false;
+            }
+            else
+            {
+                boat.Push(leftShoreDemon.Pop());
+                return true;
+            }
+        }
+
+        //左岸牧师上船
+        public bool LeftPriestToBoat()
+        {
+            if (leftShorePriest.Count == 0 || boat.Count >= 2 || boatPosition || isMoving)
+            {
+                return false;
+            }
+            else
+            {
+                boat.Push(leftShorePriest.Pop());
+                return true;
+            }
+        }
+
+        //右岸魔鬼上船
+        public bool RightDemonToBoat()
+        {
+            if (rightShoreDemon.Count == 0 || boat.Count >= 2 || !boatPosition || isMoving)
+            {
+                return false;
+            }
+            else
+            {
+                boat.Push(rightShoreDemon.Pop());
+                return true;
+            }
+        }
+
+        //右岸牧师上船
+        public bool RightPriestToBoat()
+        {
+            if (rightShorePriest.Count == 0 || boat.Count >= 2 || !boatPosition || isMoving)
+            {
+                return false;
+            }
+            else
+            {
+                boat.Push(rightShorePriest.Pop());
+                return true;
+            }
+        }
+
+        //牧师与魔鬼下船
+        public void MoveToShore()
+        {
+            if (boatPosition)
+            {
+                while (boat.Count != 0)
+                {
+                    if (boat.Peek().tag == "Demon")
+                    {
+                        rightShoreDemon.Push(boat.Pop());
+                    }
+                    else
+                    {
+                        rightShorePriest.Push(boat.Pop());
+                    }
+                }
+            }
+            else
+            {
+                while (boat.Count != 0)
+                {
+                    if (boat.Peek().tag == "Demon")
+                    {
+                        print("22");
+                        leftShoreDemon.Push(boat.Pop());
+                    }
+                    else
+                    {
+                        print("23");
+                        leftShorePriest.Push(boat.Pop());
+                    }
+                }
+            }
+        }
+
+        //恶魔上船，通过判断船停靠岸决定哪个岸边恶魔上船
+        public void DemonOnBoat ()
+        {
+            if(!boatPosition)
+            {
+                LeftDemonToBoat();
+            }
+            else
+            {
+                RightDemonToBoat();
+            }
+        }
+
+        //牧师上船，通过判断船停靠岸决定哪个岸边牧师上船
+        public void PriestOnBoat()
+        {
+            if (!boatPosition)
+            {
+                LeftPriestToBoat();
+            }
+            else
+            {
+                RightPriestToBoat();
+            }
+        }
+
+        //判断，1为失败，2为成功，0为继续
+        public int Charge()        
+        {
+            if (isMoving)
+            {
+                return 0;
+            }
+            if (boatPosition)
+            {
+                int demonCount = rightShoreDemon.Count;
+                int priestCount = rightShorePriest.Count;
+                GameObject[] boatArray = boat.ToArray();
+                for (int i = 0; i < boat.Count; i++)
+                {
+                    if (boatArray[i].tag == "Demon")
+                    {
+                        demonCount++;
+                    }
+                    else
+                    {
+                        priestCount++;
+                    }
+                }
+                if (demonCount > priestCount && priestCount != 0)
+                {
+                    return 1;
+                }
+                if (priestCount > demonCount && priestCount != 3)
+                {
+                    return 1;
+                }
+            }
+            else
+            {
+                int demonCount = leftShoreDemon.Count;
+                int priestCount = leftShorePriest.Count;
+                GameObject[] boatArray = boat.ToArray();
+                for (int i = 0; i < boat.Count; i++)
+                {
+                    if (boatArray[i].tag == "Demon")
+                    {
+                        demonCount++;
+                    }
+                    else
+                    {
+                        priestCount++;
+                    }
+                }
+                if (demonCount > priestCount && priestCount != 0)
+                {
+                    return 1;
+                }
+                if (priestCount > demonCount && priestCount != 3)
+                {
+                    return 1;
+                }
+            }
+            if (rightShorePriest.Count == 3 && leftShoreDemon.Count == 3)
+            {
+                return 2;
+            }
+            return 0;
+        }
+
+        //返回船的运动状态
+        public bool IsMoving()
+        {
+            return isMoving;
+        }
+	
+        public void Update()
+        {
+            View();
+            //开船
+            if (isMoving)
+            {
+                print("2");
+                if (boatPosition)
+                {
+                    print("1");
+                    boatObject.transform.position = Vector3.MoveTowards(boatObject.transform.position, boatEndPosition, 3 * Time.deltaTime);
+                    if (boatObject.transform.position == boatEndPosition)
+                    {
+                        isMoving = false;
+                        boatPosition = !boatPosition;
+                        MoveToShore();
+                    }
+                }
+                else
+                {
+                    boatObject.transform.position = Vector3.MoveTowards(boatObject.transform.position, boatStartPosition, 3 * Time.deltaTime);
+                    if (boatObject.transform.position == boatStartPosition)
+                    {
+                        isMoving = false;
+                        boatPosition = !boatPosition;
+                        MoveToShore();
+                    }
+                }
+            }
+        }
+```
+>> 5.关键代码：`View`：
+```
+	//构造视图
+        public void View()
+        {
+            GameObject[] leftDemonArray = leftShoreDemon.ToArray();
+            for (int i = 0; i < leftShoreDemon.Count; ++i)
+            {
+                leftDemonArray[i].transform.position = leftDemonPosition +  new Vector3(-1.5f * i, 0, 0);
+            }
+
+            GameObject[] leftPriestArray = leftShorePriest.ToArray();
+            for (int i = 0; i < leftShorePriest.Count; ++i)
+            {
+                leftPriestArray[i].transform.position = leftPriestPosition + new Vector3(-1.5f * i, 0, 0);
+            }
+
+            GameObject[] rightDemonArray = rightShoreDemon.ToArray();
+            for (int i = 0; i < rightShoreDemon.Count; ++i)
+            {
+                rightDemonArray[i].transform.position = rightDemonPosition + new Vector3(1.5f * i, 0, 0);
+            }
+
+            GameObject[] rightPriestArray = rightShorePriest.ToArray();
+            for (int i = 0; i < rightShorePriest.Count; ++i)
+            {
+                rightPriestArray[i].transform.position = rightPriestPosition + new Vector3(1.5f * i, 0, 0);
+            }
+
+            if (boat.Count != 0)
+            {
+                GameObject[] boatArray = boat.ToArray();
+                boatArray[0].transform.position = boatObject.transform.position + new Vector3(0.7f, 2, 0);
+                if (boat.Count == 2)
+                {
+                    boatArray[1].transform.position = boatObject.transform.position + new Vector3(-0.7f, 2, 0);
+                }
+            }
+        }
+```
+>> 6.
