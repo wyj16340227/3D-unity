@@ -119,17 +119,9 @@ public class Move : MonoBehaviour {
 >* * 整个游戏仅主摄像机和一个空对象，其他对象必须代码动态生成!!!。整个游戏不许出现查找游戏对象，SendMessage这类突破程序结构的通讯耦合语句。违背本条准则，不给分
 >* * 请使用课件架构图编程，不接受非MVC结构程序
 >* * 注意细节，例如：船未靠岸，牧师与魔鬼上下船运动中，均不能接受用户事件！
->> 1.首先，罗列出游戏中出现的事物：<br>
+>> 1.首先，罗列出游戏中出现的事物及规则表：<br>
 `牧师`, `魔鬼`, `船只`, `海岸`, `灯光`<br>
-对象|活动|规则
--|-|-
-船只|启程|船上有人且船在岸边
-魔鬼|上船|船上有空位且船只停靠岸边有魔鬼
-牧师|上船|船上有空位且船只停靠岸边由牧师
-牧师/魔鬼|下船|船只到达对岸
-系统|胜利|魔鬼与牧师全部到达左岸
-系统|失败|一边魔鬼数量超过牧师
-系统|重置|无<br>
+![week3规则表](http://imglf3.nosdn.127.net/img/S3F1ejdrdGNrNFhvbUJCZHNtczRDN1lMcFV5RVBrQUU2a3ZtSVR6RGFMcjhSNG03YjBlWmRBPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0 "week3规则表")<br>
 >> 3.以`Sphere`作为`魔鬼`，以`Cube`作为`牧师`，以`Cube`作为`河岸`以及`船只`，以系统预设灯光直接作为`Light`，调整他们的大小，将他们放入`Recourse`资源文件夹下的`Prefabs`文件夹下作为预设对象，并为他们分别添加标签。<br>
 ![预设文件](https://github.com/wyj16340227/3D-unity/blob/master/%E9%A2%84%E8%AE%BE%E6%96%87%E4%BB%B6.png "预设文件")<br>
 >> 4.关系图<br>
