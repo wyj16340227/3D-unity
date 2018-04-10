@@ -38,10 +38,10 @@
 >>
 # 编程实践
 >* 牧师与魔鬼 动作分离版
->> 1.构造结构<br>
+>>* 1.构造结构<br>
 >> 使用三个主要类，分别为`Data`(数据)`Action`(动作)`Controller`(用户交互及控制管理动作)<br>
 >>
->> 2.`Data`<br>
+>>* 2.`Data`<br>
 >>
 >> 在原先的基础上，将所有关于`GameObject`的`Transforme`改变抽离出来，交由`Controller`控制`Action`完成。在`Data`类中，只实现各个对象状态的改变，而不进行运动。<br>
 >> 在原有基础上，增加了一个`moving`变量，用来存储正在移动的物体。当要执行操作的时候，先将对象（船除外）压入`moving`，当操作执行完之后，再插入应当存放的栈（如牧师上船，先将牧师压入`moving`，当操作执行完成后，再将牧师压入船的栈）。<br>
@@ -345,7 +345,7 @@
                     return GameState.GameOver;
                 }
             }
-            if (rightShorePriest.Count == 3 && leftShoreDemon.Count == 3)
+            if (leftShorePriest.Count == 3 && leftShoreDemon.Count == 3)
             {
                 return GameState.Win;
             }
@@ -421,7 +421,7 @@
     }
 ```
 >>
->> 3.`Action`<br>
+>>* 3.`Action`<br>
 >>
 >> 设置函数`act()`，调用该函数则传递参数，根据参数得到的对象及状态判断要执行的操作。设置`bool`变量`run`，用来标识当前是否在进行运动，当在进行运动的时候，拒绝`Controller`的函数调用（不改变参数），若没有运动，接受传递的参数，改变运动状态并开始运动。运动完成后再次将`run`置为`False`。<br>
 ```
@@ -687,3 +687,23 @@
         }
     }
 ```
+>>* 5.其他<br>
+>>
+>> `GameStatus`<br>
+```
+    public enum GameState
+    {
+        GameOver,
+        Win,
+        Waiting,
+        Moving
+    }
+```
+>>* 6.下载游戏对象，完成替换。<br>
+>>
+>>* 7.试玩游戏。<br>
+>>
+>> 胜利<br>
+![Win](http://imglf6.nosdn.127.net/img/S3F1ejdrdGNrNFhZY1VkUlNRWHQ5N1QxbzJuYmlsakFTZkE3aGlPQXFuQm5NTjdhQTY4bGZRPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0 "Win")<br>
+>> 失败<br>
+![GameOver](http://imglf4.nosdn.127.net/img/S3F1ejdrdGNrNFhZY1VkUlNRWHQ5ejBFeE1YdGJMYzlMRWJpWmNoM3NMdkdvYkowNFBia2JBPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0 "GameOver")<br>
