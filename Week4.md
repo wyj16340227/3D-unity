@@ -30,5 +30,38 @@
 >>
 >> `Tag` 字串，对象的标签，可以通过`Tag`来标记、识别对象。<br>
 >>
->> `Layer` 
+>> `Layer` 分组对象，常用于摄像机渲染。<br>
+>>
+>>* 3.常见对象与渲染<br>
+>>
+>> `Camera` `SkyBoxes` `3D物体` `地形构造系统` `音频` `Asset` `Empty` `Light` `UI` `Partical System` `Materials`<br>
+>>
 # 编程实践
+>* 牧师与魔鬼 动作分离版
+>> 1.构造结构<br>
+>> 使用三个主要类，分别为`Data`(数据)`Action`(动作)`Controller`(用户交互及控制管理动作)<br>
+>>
+>> 2.`Data`<br>
+>> 在原先的基础上，将所有关于`GameObject`的`Transforme`改变抽离出来，交由`Controller`控制`Action`完成。在`Data`类中，只实现各个对象状态的改变，而不进行运动。<br>
+>> 在原有基础上，增加了一个`moving`变量，用来存储正在移动的物体。<br>
+>>
+```
+private GameObject boatObject;                                              //船
+        private Stack<GameObject> leftShoreDemon = new Stack<GameObject>();         //左岸魔鬼
+        private Stack<GameObject> leftShorePriest = new Stack<GameObject>();        //左岸牧师
+        private Stack<GameObject> rightShoreDemon = new Stack<GameObject>();        //右岸魔鬼
+        private Stack<GameObject> rightShorePriest = new Stack<GameObject>();       //右岸牧师
+        private Stack<GameObject> boat = new Stack<GameObject>();                   //船上数量
+        private Stack<GameObject> moving = new Stack<GameObject>();                 //移动队列
+        private bool boatPosition = true;                                           //船在右边
+        private bool isMoving = false;                                              //船在移动
+        Vector3 boatStartPosition = new Vector3(4f, -3, -3);                        //以下为各个参考位置
+        Vector3 boatEndPosition = new Vector3(-4f, -3, -3);
+        Vector3 leftShore = new Vector3(-15, -2, -3);
+        Vector3 rightShore = new Vector3(15, -2, -3);
+        Vector3 boatCurrentPosition;
+        Vector3 leftDemonPosition = new Vector3(-8f, -1.5f, -3);
+        Vector3 leftPriestPosition = new Vector3(-12.5f, -1.5f, -3);
+        Vector3 rightDemonPosition = new Vector3(8f, -1.5f, -3);
+        Vector3 rightPriestPosition = new Vector3(12.5f, -1.5f, -3);
+```
