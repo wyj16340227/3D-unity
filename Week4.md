@@ -564,3 +564,126 @@
     bool turnBack;          //是否船已到达对岸，需要掉头
     bool toShore;           //是否需要对象上岸
 ```
+>> 交互与控制。<br>
+```
+    //初始化
+    public void Start()
+    {
+        instance = gameObject.AddComponent<Data>() as Data;
+        act = gameObject.AddComponent<Action>() as Action;
+        states = GameState.Waiting;
+        toBoat = false;
+        turnBack = false;
+        toShore = false;
+    }
+
+    //交互
+    public void OnGUI()
+    {
+        //显示界面
+        instance.SetView();
+        //调整当前状态，查看是否有已完成动作但未和Data同步
+        if (!act.Run())
+        {
+            states = GameState.Waiting;
+            if (toBoat)
+            {
+                instance.MoveToBoat();
+                toBoat = false;
+            } else if(toShore)
+            {
+                instance.MoveToShore();
+                toShore = false;
+            } else if (turnBack)
+            {
+                instance.SetPosition();
+                turnBack = false;
+            }
+        }
+        //判断当前游戏是否结束
+        if (states == GameState.Waiting)
+        {
+            states = instance.Charge();
+        }
+        //游戏进行中
+        if (states == GameState.Waiting || states == GameState.Moving)
+        {
+            if (GUI.Button(new Rect (Screen.width / 10 * 3.4f, Screen.height / 10 * 2f, 100, 30), "牧师上船"))
+            {
+                if (states == GameState.Waiting)
+                {
+                    if (instance.BoatCount() == 2 || instance.GetPriestCount() == 0)
+                    {
+                        return;
+                    }
+                    instance.PriestOnBoat();
+                    act.Act(instance.getMoving(), instance.getBoatPosition(), instance.BoatCount(), false);
+                    states = GameState.Moving;
+                    toBoat = true;
+                }
+            }
+            if (GUI.Button(new Rect(Screen.width / 10 * 6, Screen.height / 10 * 2f, 100, 30), "恶魔上船"))
+            {
+                if (states == GameState.Waiting)
+                {
+                    if (instance.BoatCount() == 2 || instance.GetDemonCount() == 0)
+                    {
+                        return;
+                    }
+                    instance.DemonOnBoat();
+                    act.Act(instance.getMoving(), instance.getBoatPosition(), instance.BoatCount(), false);
+                    states = GameState.Moving;
+                    toBoat = true;
+                }
+            }
+            if (GUI.Button(new Rect(Screen.width / 2 - 50, Screen.height / 10 * 3.5f, 100, 30), "启程"))
+            {
+                if (states == GameState.Moving || instance.BoatCount() == 0)
+                {
+                    return;
+                }
+                act.Act(instance.GetBoat(), instance.getBoatPosition(), instance.BoatCount(), true);
+                states = GameState.Moving;
+                turnBack = true;
+            }
+            if (GUI.Button(new Rect (Screen.width / 2 - 50, Screen.height / 10 * 4.5f, 100, 30), "下船"))
+            {
+                if(states != GameState.Waiting)
+                {
+                    return;
+                }
+                if (instance.BoatCount() != 0)
+                {
+                    instance.DownBoat();
+                    act.Act(instance.getMoving(), instance.getBoatPosition(), instance.BoatCount(), true);
+                    states = GameState.Moving;
+                    toShore = true;
+                }
+            }
+            if (GUI.Button(new Rect(Screen.width / 4 * 3, Screen.height / 10 * 8f, 100, 30), "重新开始"))
+            {
+                instance.Reload();
+                states = GameState.Waiting;
+            }
+        }
+        //胜利
+        else if (states == GameState.Win)
+        {
+            GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 10 * 3f, 100, 30), "胜利");
+            if (GUI.Button(new Rect(Screen.width / 4 * 3, Screen.height / 10 * 8f, 100, 30), "重新开始")) {
+                states = GameState.Waiting;
+                instance.Reload();
+            }
+        }
+        //游戏结束
+        else if (states == GameState.GameOver)
+        {
+            GUI.Label(new Rect(Screen.width / 2 - 50, Screen.height / 10 * 3f, 100, 30), "牧师死亡");
+            if (GUI.Button(new Rect(Screen.width / 4 * 3, Screen.height / 10 * 8f, 100, 30), "重新开始"))
+            {
+                states = GameState.Waiting;
+                instance.Reload();
+            }
+        }
+    }
+```
