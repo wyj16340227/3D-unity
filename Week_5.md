@@ -18,7 +18,7 @@
 > 使用了MVC与游戏工厂模型<br>
 > - 1.类图<br>
 > <br>
-
+![](http://imglf3.nosdn.127.net/img/S3F1ejdrdGNrNFVSMUdMZDJnMUJ6QzNZNklUQ2lnVUEzY2VyZTRYODFHTDRVU051bVlaT09nPT0.jpg?imageView&rotate=90&thumbnail=500x0&quality=96&stripmeta=0&type=jpg "")<br>
 > - 2.工厂实现<br>
 > <br>
 ```
