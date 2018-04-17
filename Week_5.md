@@ -41,10 +41,51 @@ public class DiskFactory : MonoBehaviour
                 used.Add(free[0]);
                 free.RemoveAt(0);
                 used[used.Count - 1].SetActive(true);
+                int colorSet = Random.Range(0, 5);
+                if (colorSet > 4)
+                {
+                    used[used.Count - 1].GetComponent<MeshRenderer>().material.color = Color.black;
+                }
+                else if (colorSet > 3)
+                {
+                    used[used.Count - 1].GetComponent<MeshRenderer>().material.color = Color.blue;
+                }
+                else if (colorSet > 2)
+                {
+                    used[used.Count - 1].GetComponent<MeshRenderer>().material.color = Color.white;
+                }
+                else if (colorSet > 1)
+                {
+                    used[used.Count - 1].GetComponent<MeshRenderer>().material.color = Color.green;
+                }
+                else if (colorSet > 0)
+                {
+                    used[used.Count - 1].GetComponent<MeshRenderer>().material.color = Color.gray;
+                }
             }
             else
             {
                 GameObject tempDisk = Instantiate(Resources.Load("Prefabs/Disk"), Vector3.up, Quaternion.identity) as GameObject;
+                int colorSet = Random.Range(0, 5);
+                if (colorSet > 4)
+                {
+                    tempDisk.GetComponent<MeshRenderer>().material.color = Color.black;
+                } else if (colorSet > 3)
+                {
+                    tempDisk.GetComponent<MeshRenderer>().material.color = Color.blue;
+                }
+                else if (colorSet > 2)
+                {
+                    tempDisk.GetComponent<MeshRenderer>().material.color = Color.white;
+                }
+                else if (colorSet > 1)
+                {
+                    tempDisk.GetComponent<MeshRenderer>().material.color = Color.green;
+                }
+                else if (colorSet > 0)
+                {
+                    tempDisk.GetComponent<MeshRenderer>().material.color = Color.gray;
+                }
                 used.Add(tempDisk);
                 used[used.Count - 1].SetActive(true);
             }
