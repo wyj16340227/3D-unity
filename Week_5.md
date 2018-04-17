@@ -365,18 +365,18 @@ public class SceneController : MonoBehaviour {
         {
             if (time >= 3)
             {
-                GUI.TextArea(new Rect(Screen.width / 2 - 50, 100, 40, 40), "3");
+                GUI.TextArea(new Rect(Screen.width / 2 - 50, 100, 40, 40), "3", fontstyle);
             } else if (time >= 2)
             {
-                GUI.TextArea(new Rect(Screen.width / 2 - 50, 100, 40, 40), "2");
+                GUI.TextArea(new Rect(Screen.width / 2 - 50, 100, 40, 40), "2", fontstyle);
             }
             else if (time >= 1)
             {
-                GUI.TextArea(new Rect(Screen.width / 2 - 50, 100, 40, 40), "1");
+                GUI.TextArea(new Rect(Screen.width / 2 - 50, 100, 40, 40), "1", fontstyle);
             }
             else if (time >= 0)
             {
-                GUI.TextArea(new Rect(Screen.width / 2 - 50, 100, 40, 40), "0");
+                GUI.TextArea(new Rect(Screen.width / 2 - 50, 100, 40, 40), "0", fontstyle);
             }
             time -= Time.deltaTime;
 
