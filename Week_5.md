@@ -311,7 +311,7 @@ public class SceneController : MonoBehaviour {
     public static GameObject player;
     GUIStyle fontstyle = new GUIStyle();
 
-    public int restDisk = 10;
+    public int restDisk = 5;
 	// Use this for initialization
 	void Start () {
         scoreKeeper = gameObject.AddComponent<ScoreKeeper>() as ScoreKeeper;
@@ -322,6 +322,9 @@ public class SceneController : MonoBehaviour {
         fontstyle.fontSize = 50;
         fontstyle.normal.textColor = new Color(255, 255, 255);
         fontstyle.alignment = TextAnchor.MiddleCenter;
+        GameObject player = Instantiate(Resources.Load("Prefabs/Player"), Vector3.up, Quaternion.identity) as GameObject;
+        player.transform.rotation = Quaternion.Euler(0, 90, 0);
+        player.transform.position = new Vector3(-5, -3, 0);
     }
 	
 	// Update is called once per frame
@@ -331,7 +334,7 @@ public class SceneController : MonoBehaviour {
             if (restDisk > 0 && waitTime <= 0)
             {
                 diskmanager.FlyDisk(scoreKeeper.GetRound());
-                restDisk -= scoreKeeper.GetRound();
+                restDisk -= 1;
                 waitTime = 4f;
             } else if (restDisk > 0 && waitTime > 0)
             {
@@ -340,16 +343,31 @@ public class SceneController : MonoBehaviour {
             {
                 if (scoreKeeper.GetRound() != MAX_ROUND)
                 {
-                    restDisk = 10;
-                    scoreKeeper.NextRound();
-                    statues = GameStatues.NextRound;
+                    restDisk = 5;
+                    statues = GameStatues.WaitingForNextRound;
+                    waitTime = 2;
+
                 } else
                 {
-                    statues = GameStatues.GameOver;
+                    statues = GameStatues.WaitingForGameOver;
+                    waitTime = 2;
                 }
             }
+        } else if (statues == GameStatues.WaitingForNextRound)
+        {
+            waitTime -= Time.deltaTime;
+            if (waitTime <= 0)
+            {
+                statues = GameStatues.NextRound;
+            }
+        } else if (statues == GameStatues.WaitingForGameOver){
+            waitTime -= Time.deltaTime;
+            if (waitTime <= 0)
+            {
+                statues = GameStatues.GameOver;
+            }
         }
-	}
+    }
 
     public void OnGUI()
     {
@@ -405,3 +423,6 @@ public class SceneController : MonoBehaviour {
 }
 ```
 > 场景控制器里实例化了`ScoreKeeper`与`DiskActionManager`，通过`OnGUI()`与用户完成交互。<br>
+> 上一张成品图。<br>
+![](http://imglf4.nosdn.127.net/img/S3F1ejdrdGNrNFZSbEpZTmJhUHFCK1gzMFFBRlNZYlo4RVZKMkY1OEtpZTRETjFSc205UFF3PT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0 "")<br>
+> - [演示视频](http://v.youku.com/v_show/id_XMzU0NTc2MDQxNg==.html)
