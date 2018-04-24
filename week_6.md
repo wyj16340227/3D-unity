@@ -1,7 +1,61 @@
+# **_<center>改进飞碟（Hit UFO）游戏</center>_**
+> - 游戏内容要求：<br>
+> - - 按 adapter模式 设计图修改飞碟游戏<br>
+> - - 使它同时支持物理运动与运动学（变换）运动<br>
+
+
+------------
 > - 
+## **_<center>adaptor模式</center>_**<br>
+> 
+>> - 在本题中，实现了物理学飞行`FlyActionByForce`与运动学飞行`FlyAction`的适配。以`FlyActionByForce`适配`FlyAction`。<br>
+>
+>> 通过构造`FlyAction`的子类`TranslateFlyAction`中包含`FlyActionByForce`的实例，并重载`FlyAction`的方法，调用`FlyActionByForce`的方法来实现。<br>
+>> 通过显示传参将`gameObject`传进构造函数之中，以实现用`FlyActionByForce`的方法来更改`Disk`的属性，并以`TranslateFlyAction`（`FlyAction`）的子类来实现动作。<br>
+>> 构造适配器如下：<br>
+```
+    public class TranslateFlyAction : FlyAction
+    {
+        private FlyActionByForce forcefly;
+
+        new
+        public static FlyAction GetSSAction(Vector3 _dirction, GameObject disk)
+        {
+            TranslateFlyAction currentAction = ScriptableObject.CreateInstance<TranslateFlyAction>();
+            currentAction.dirction = _dirction;
+            currentAction.gameObject = disk;
+            currentAction.forcefly = new FlyActionByForce();
+            currentAction.forcefly.gameObject = disk;
+            currentAction.forcefly.dirction = _dirction;
+            currentAction.forcefly.transform = disk.transform;
+            Debug.Log(currentAction.gameObject.name);
+            Debug.Log(currentAction.forcefly.gameObject.name);
+            return currentAction;
+        }
+
+        public override void Start()
+        {
+            forcefly.Start();
+            forcefly.callback = callback;
+        }
+
+        public override void Update()
+        {
+            forcefly.Update();
+        }
+    }
+```
+>> 适配器将`FlyActionByForce`适配为`FlyAction`，这样就可以通过使用`TranslateFlyAction`来实现。调用语句如下：<br>
+```
+FlyAction fly = TranslateFlyAction.GetSSAction(new Vector3(Random.Range(5f, 20), Random.Range(2.5f, 10), Random.Range(0, 3f)), disk);
+```
+
+--------
+## **_<center>两种实现</center>_**<br>
 ### **_<center>通过物理学来实现</center>_**<br>
 > 
 >> 通过两个变量来实现，一个是`Rigidbody`中自带的`use Gravity`来实现飞碟的下落，另一个是通过`Rigidbody.velocity`来为飞碟添加一个初速度。<br>
+
 ```
     public class FlyActionByForce : SSAction
     {
@@ -92,44 +146,28 @@
     }
 ``` 
 
-------------
-> - 
-## **_<center>adaptor模式</center>_**<br>
-> 
->> - 在本题中，实现了物理学飞行`FlyActionByForce`与运动学飞行`FlyAction`的适配。以`FlyActionByForce`适配`FlyAction`。<br>
->
->> 通过构造`FlyAction`的子类`TranslateFlyAction`中包含`FlyActionByForce`的实例，并重载`FlyAction`的方法，调用`FlyActionByForce`的方法来实现。<br>
->> 通过显示传参将`gameObject`传进构造函数之中，以实现用`FlyActionByForce`的方法来更改`Disk`的属性，并以`TranslateFlyAction`（`FlyAction`）的子类来实现动作。<br>
->> 构造适配器如下：<br>
+### **_<center>接口切换的实现</center>_**<br>
+>> 通过实现另一个函数`FlyDiskByForce`，设置变量`flyStyle`记录当前飞行模式，从而调用不同函数。<br>
 ```
-    public class TranslateFlyAction : FlyAction
-    {
-        private FlyActionByForce forcefly;
-
-        new
-        public static FlyAction GetSSAction(Vector3 _dirction, GameObject disk)
+        public void FlyDisk(int num)
         {
-            TranslateFlyAction currentAction = ScriptableObject.CreateInstance<TranslateFlyAction>();
-            currentAction.dirction = _dirction;
-            currentAction.gameObject = disk;
-            currentAction.forcefly = new FlyActionByForce();
-            currentAction.forcefly.gameObject = disk;
-            currentAction.forcefly.dirction = _dirction;
-            currentAction.forcefly.transform = disk.transform;
-            Debug.Log(currentAction.gameObject.name);
-            Debug.Log(currentAction.forcefly.gameObject.name);
-            return currentAction;
+            GameObject disk;
+            for (int i = 0; i < num; i++)
+            {
+                disk = factory.GetDisk();
+                FlyAction fly = FlyAction.GetSSAction(new Vector3(Random.Range(5f, 20), Random.Range(2.5f, 10), Random.Range(0, 3f)), disk);
+                this.runAction(disk, fly, this);
+            }
         }
 
-        public override void Start()
+        public void FlyDiskByForce(int num)
         {
-            forcefly.Start();
-            forcefly.callback = callback;
+            GameObject disk;
+            for (int i = 0; i < num; i++)
+            {
+                disk = factory.GetDisk();
+                FlyAction fly = TranslateFlyAction.GetSSAction(new Vector3(Random.Range(5f, 20), Random.Range(2.5f, 10), Random.Range(0, 3f)), disk);
+                this.runAction(disk, fly, this);
+            }
         }
-
-        public override void Update()
-        {
-            forcefly.Update();
-        }
-    }
 ```
