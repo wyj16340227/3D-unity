@@ -1,0 +1,135 @@
+> - 
+### **_<center>通过物理学来实现</center>_**<br>
+> 
+>> 通过两个变量来实现，一个是`Rigidbody`中自带的`use Gravity`来实现飞碟的下落，另一个是通过`Rigidbody.velocity`来为飞碟添加一个初速度。<br>
+```
+    public class FlyActionByForce : SSAction
+    {
+        public Vector3 dirction;
+        // 飞行方向
+        private float time;
+        // 已经飞行时间
+        // 刚体组建
+        Rigidbody rig;
+
+        public static FlyActionByForce GetSSAction(Vector3 _dirction, GameObject disk)
+        {
+            FlyActionByForce currentAction = ScriptableObject.CreateInstance<FlyActionByForce>();
+            currentAction.gameObject = disk;
+            currentAction.dirction = _dirction;
+            currentAction.time = 0;
+            return currentAction;
+        }
+
+        public override void Start()
+        {
+            rig = this.gameObject.GetComponent<Rigidbody>();
+            rig.velocity = dirction;
+            // 各个方向的匀速运动
+            this.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            // 竖直方向的匀加速运动
+        }
+
+        public override void Update()
+        {
+            if (!this.gameObject.activeSelf) // 如果飞碟已经回收
+            {
+                this.destory = true;
+                this.callback.SSEventAction(this, SSActionEventType.STARTED);
+                return;
+            }
+            if (this.transform.position.y < -3)
+            {
+                this.destory = true;
+                // 回收飞碟
+                this.gameObject.SetActive(false);
+                this.callback.SSEventAction(this, SSActionEventType.COMPLETED, 0, null, this.gameObject);
+            }
+        }
+    }
+```
+
+### **_<center>通过运动学来实现</center>_**<br>
+>
+>> 实现方法与之前类似，唯一一点不同是之前的`Disk`不具有`Rigidbody`属性，移动完全通过运动学来实现，但现在为了物理学实现而添加了`Rigidbody` 并且使用了`use Gravity`，因此，需要在`Start()`函数中得到`gameObject.Rigidbody`并将`useGravity`变量设置为`false`。<br>
+```
+        public static FlyAction GetSSAction(Vector3 _dirction, GameObject disk)
+        {
+            FlyAction currentAction = ScriptableObject.CreateInstance<FlyAction>();
+            currentAction.gameObject = disk;
+            currentAction.dirction = _dirction;
+            currentAction.time = 0;
+            return currentAction;
+        }
+
+        public override void Start()
+        {
+            down = 5;
+            this.gameObject.GetComponent<Rigidbody>().useGravity = false;
+        }
+
+        public override void Update()
+        {
+            if (!this.gameObject.activeSelf) // 如果飞碟已经回收
+            {
+                this.destory = true;
+                this.callback.SSEventAction(this, SSActionEventType.STARTED);
+                return;
+            }
+            time += Time.deltaTime;
+            transform.position += Time.deltaTime * dirction;
+            // 各个方向的匀速运动
+            transform.position += Vector3.down * down * time * Time.deltaTime;
+            // 竖直方向的匀加速运动
+            if (this.transform.position.y < -3)
+            {
+                this.destory = true;
+                // 回收飞碟
+                this.gameObject.SetActive(false);
+                this.callback.SSEventAction(this, SSActionEventType.COMPLETED, 0, null, this.gameObject);
+            }
+        }
+    }
+``` 
+
+------------
+> - 
+## **_<center>adaptor模式</center>_**<br>
+> 
+>> - 在本题中，实现了物理学飞行`FlyActionByForce`与运动学飞行`FlyAction`的适配。以`FlyActionByForce`适配`FlyAction`。<br>
+>
+>> 通过构造`FlyAction`的子类`TranslateFlyAction`中包含`FlyActionByForce`的实例，并重载`FlyAction`的方法，调用`FlyActionByForce`的方法来实现。<br>
+>> 通过显示传参将`gameObject`传进构造函数之中，以实现用`FlyActionByForce`的方法来更改`Disk`的属性，并以`TranslateFlyAction`（`FlyAction`）的子类来实现动作。<br>
+>> 构造适配器如下：<br>
+```
+    public class TranslateFlyAction : FlyAction
+    {
+        private FlyActionByForce forcefly;
+
+        new
+        public static FlyAction GetSSAction(Vector3 _dirction, GameObject disk)
+        {
+            TranslateFlyAction currentAction = ScriptableObject.CreateInstance<TranslateFlyAction>();
+            currentAction.dirction = _dirction;
+            currentAction.gameObject = disk;
+            currentAction.forcefly = new FlyActionByForce();
+            currentAction.forcefly.gameObject = disk;
+            currentAction.forcefly.dirction = _dirction;
+            currentAction.forcefly.transform = disk.transform;
+            Debug.Log(currentAction.gameObject.name);
+            Debug.Log(currentAction.forcefly.gameObject.name);
+            return currentAction;
+        }
+
+        public override void Start()
+        {
+            forcefly.Start();
+            forcefly.callback = callback;
+        }
+
+        public override void Update()
+        {
+            forcefly.Update();
+        }
+    }
+```
