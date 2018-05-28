@@ -25,26 +25,35 @@
 > - 设置背景<br>
 >> 因为是行星，所以是在夜空中，因此我们的背景要设置成黑色。创造一个纯黑色的天空盒，天空盒的贴图使用6张纯黑色的图片。<br>
 <br>
-![enter image description here](http://imglf4.nosdn.127.net/img/S3F1ejdrdGNrNFhHakZvcy8xYjlpZEtvTVhseVhIalgxRjBBbFg4QmhjcEI2ZmlVa093Z1hnPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+
+![](http://imglf4.nosdn.127.net/img/S3F1ejdrdGNrNFhHakZvcy8xYjlpZEtvTVhseVhIalgxRjBBbFg4QmhjcEI2ZmlVa093Z1hnPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+
 <br>
 > - 创建中心天体<br>
 >> 在网上搜索贴图，创建新的行星，贴上贴图，编写C#文件，控制行星的自转。将C#脚本挂载上对象，并将对象设置为预制。
 <br>
-![enter image description here](http://imglf5.nosdn.127.net/img/S3F1ejdrdGNrNFhHakZvcy8xYjlpWkw1dUFEK095ZWQzYTd0UnJCMmFqcndsdHEvNGRIdXdRPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+
+![](http://imglf5.nosdn.127.net/img/S3F1ejdrdGNrNFhHakZvcy8xYjlpWkw1dUFEK095ZWQzYTd0UnJCMmFqcndsdHEvNGRIdXdRPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+
 <br>
 > - 设置粒子<br>
 >> 在网上搜索行星的贴图，贴在粒子上，因为是行星带，因此形状要设置成圆形，先将`Randerer` 设置为`Mesh`，再设置`Sphere`。<br>
 <br>
-![enter image description here](http://imglf5.nosdn.127.net/img/S3F1ejdrdGNrNFhHakZvcy8xYjlpYktUYUl6Yll0STlyVG5MUll0Y1NCaGJWSFZkdjdka0lBPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+
+![](http://imglf5.nosdn.127.net/img/S3F1ejdrdGNrNFhHakZvcy8xYjlpYktUYUl6Yll0STlyVG5MUll0Y1NCaGJWSFZkdjdka0lBPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+
 <br>
 > - 粒子信息类`ParticleMes`<br>
 >> 该类存储粒子应有的信息，主要包括粒子的半径、角度（代码见文末）。<br>
+<br>
 ```
     private float radius = 0f;      // 半径
     private float angle = 0f;       // 角度 
 ```
+<br>
 > - 粒子系统`ParticleSys`<br>
 >> 该类控制整个粒子系统，包含三个重要的变量：粒子系统、粒子数组、粒子信息数组。<br>
+<br>
 ```
     private ParticleSystem particleSys;             //粒子系统  
     private ParticleSystem.Particle[] particle;     //粒子数组  
@@ -55,8 +64,10 @@
     public float max;               //外径  
     public float speed;             //速度
 ```
+<br>
 > - 粒子初始化<br>
 >> 随机生成粒子的构造数据，希望粒子能够在均匀分布在内外径之间，因此使用了随机生成的方法生成粒子的半径；与此同时，随机生成了粒子的角度。<br>
+<br>
 ```
             //粒子位置在内外径之内  
             float midRadius = (min + max) / 2;
@@ -68,17 +79,22 @@
             float angle = Random.Range(0.0f, 360.0f);
             float theta = angle / 180 * Mathf.PI;
 ```
+<br>
 > - 粒子的运动<br>
 >> 更改粒子的角度实现粒子的运动（内行星带顺时针，外行星带逆时针），参照网上的方法，增加了层次变量，将行星带中的行星分为5层，为所有的行星均匀的设置了速度，使外围的运动更慢，内围的运动的更快。<br>
+<br>
 ```
             particleMes[i].angle += (i % tier + 1) * (speed / particleMes[i].radius / tier);
             particleMes[i].angle = (360.0f + particleMes[i].angle) % 360.0f;
 ```
+<br>
 > - 中心天体的运动<br>
 >> 实现很简单，绕着法平面转就可以了。<br>
+<br>
 ```
 		this.gameObject.transform.Rotate(new Vector3(1, 2, 0), rotateSpeed * Time.deltaTime);
 ```
+<br>
 ------
 > 实现效果<br>
 小图：<br>
