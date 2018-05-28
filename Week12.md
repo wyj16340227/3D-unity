@@ -36,6 +36,7 @@
 ![](http://imglf5.nosdn.127.net/img/S3F1ejdrdGNrNFhHakZvcy8xYjlpWkw1dUFEK095ZWQzYTd0UnJCMmFqcndsdHEvNGRIdXdRPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
 
 <br>
+
 > - 设置粒子<br>
 >> 在网上搜索行星的贴图，贴在粒子上，因为是行星带，因此形状要设置成圆形，先将`Randerer` 设置为`Mesh`，再设置`Sphere`。<br>
 <br>
@@ -43,6 +44,7 @@
 ![](http://imglf5.nosdn.127.net/img/S3F1ejdrdGNrNFhHakZvcy8xYjlpYktUYUl6Yll0STlyVG5MUll0Y1NCaGJWSFZkdjdka0lBPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
 
 <br>
+
 > - 粒子信息类`ParticleMes`<br>
 >> 该类存储粒子应有的信息，主要包括粒子的半径、角度（代码见文末）。<br>
 <br>
@@ -51,6 +53,7 @@
     private float angle = 0f;       // 角度 
 ```
 <br>
+
 > - 粒子系统`ParticleSys`<br>
 >> 该类控制整个粒子系统，包含三个重要的变量：粒子系统、粒子数组、粒子信息数组。<br>
 <br>
@@ -65,6 +68,7 @@
     public float speed;             //速度
 ```
 <br>
+
 > - 粒子初始化<br>
 >> 随机生成粒子的构造数据，希望粒子能够在均匀分布在内外径之间，因此使用了随机生成的方法生成粒子的半径；与此同时，随机生成了粒子的角度。<br>
 <br>
@@ -80,6 +84,7 @@
             float theta = angle / 180 * Mathf.PI;
 ```
 <br>
+
 > - 粒子的运动<br>
 >> 更改粒子的角度实现粒子的运动（内行星带顺时针，外行星带逆时针），参照网上的方法，增加了层次变量，将行星带中的行星分为5层，为所有的行星均匀的设置了速度，使外围的运动更慢，内围的运动的更快。<br>
 <br>
@@ -88,6 +93,7 @@
             particleMes[i].angle = (360.0f + particleMes[i].angle) % 360.0f;
 ```
 <br>
+
 > - 中心天体的运动<br>
 >> 实现很简单，绕着法平面转就可以了。<br>
 <br>
@@ -95,6 +101,7 @@
 		this.gameObject.transform.Rotate(new Vector3(1, 2, 0), rotateSpeed * Time.deltaTime);
 ```
 <br>
+
 ------
 > 实现效果<br>
 小图：<br>
