@@ -29,6 +29,7 @@
 ![](http://imglf4.nosdn.127.net/img/S3F1ejdrdGNrNFhHakZvcy8xYjlpZEtvTVhseVhIalgxRjBBbFg4QmhjcEI2ZmlVa093Z1hnPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
 
 <br>
+
 > - 创建中心天体<br>
 >> 在网上搜索贴图，创建新的行星，贴上贴图，编写C#文件，控制行星的自转。将C#脚本挂载上对象，并将对象设置为预制。
 <br>
