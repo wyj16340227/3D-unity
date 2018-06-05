@@ -115,6 +115,7 @@
  >> 在装备栏（玩家穿戴装备栏），由鼠标点击来进行交互，如下：
 
 <br>
+
 ![](http://imglf5.nosdn.127.net/img/S3F1ejdrdGNrNFZiRE9yTzhnZXFYTGFaNXJRLzN3cnZ5M3dITndFTUVMVlBIaTVzVmIwbUx3PT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
 <br>
  
