@@ -38,7 +38,7 @@
  
  <br>
  
- ![]()
+ ![](http://imglf4.nosdn.127.net/img/S3F1ejdrdGNrNFZiRE9yTzhnZXFYTzFFbTMxcExiVWM4RVpZZ1FsUEx6ZGJOQTUvWE5wNjVBPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
  <br>
  
  - - - `UICamera`
@@ -53,15 +53,28 @@
  
  >> 最后得到效果图：
  
+ <br>
+ 
+ ![](http://imglf3.nosdn.127.net/img/S3F1ejdrdGNrNFh1blE5WmdVQmRGUTlLeWV3ZHdoTWRjT09qazZ3bG90aWJoV3UxaDNna0x3PT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+ <br>
+ 
  - * 主相机层
  - - - 详情
  >> 该层包含主相机和一个粒子系统。
  - - - 主相机设置
  >> 主相机应当最后渲染，设置参数如下：
  
+ <br>
+ 
+ ![](http://imglf5.nosdn.127.net/img/S3F1ejdrdGNrNFh1blE5WmdVQmRGUUhlZFMzSHNYUnp6eTI3MHhJY1RsRHZlY1FYUzNoRlVBPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+ <br>
  
  - 场景效果
  
+ <br>
+ 
+ ![](http://imglf4.nosdn.127.net/img/S3F1ejdrdGNrNFZiRE9yTzhnZXFYTzFFbTMxcExiVWM4RVpZZ1FsUEx6ZGJOQTUvWE5wNjVBPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+ <br>
  
 ---------
 
@@ -69,6 +82,11 @@
  - 实现原理
  >> 装备的信息全部存储在每一个 `Button` 里，每次传递数字，根据数字信息来判断该位置的装备。<br>
  >> 在装备栏放置物品，由鼠标点击来进行交互，如下：
+  
+ <br>
+ 
+ ![](http://imglf3.nosdn.127.net/img/S3F1ejdrdGNrNFZiRE9yTzhnZXFYSG9hakE2ekJlUmM3SFhrMXVNcTBIbktjYVQwSklncW1BPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+ <br>
  
  >> 代码如下：
  
@@ -95,6 +113,10 @@
  ```
  
  >> 在装备栏（玩家穿戴装备栏），由鼠标点击来进行交互，如下：
+
+<br>
+![](http://imglf5.nosdn.127.net/img/S3F1ejdrdGNrNFZiRE9yTzhnZXFYTGFaNXJRLzN3cnZ5M3dITndFTUVMVlBIaTVzVmIwbUx3PT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+<br>
  
  >> 代码如下：
  
@@ -298,6 +320,10 @@ namespace backpack
  >> 挂载在空对象上，配置成员变量 `mouseImage` <br>
  >> 如图: 
  
+ <br>
+ 
+ ![](http://imglf6.nosdn.127.net/img/S3F1ejdrdGNrNFZiRE9yTzhnZXFYSjJwT0hhdDJSS21ueXRMZVJvalhlMmg5SVhnOWhPYkx3PT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+ <br>
  
  - **_Package_**
  
@@ -352,6 +378,11 @@ namespace backpack
  >> 注意，该脚本需要挂载在每一个装备栏下，并且需要配置参数，配置事件，将装备图片配置好，并配置其他参数。将前三个装备栏放上装备。<br>
  >> 如下：
  
+ 
+ <br>
+ 
+ ![](http://imglf4.nosdn.127.net/img/S3F1ejdrdGNrNFh1blE5WmdVQmRGUkNlN05KZGZ0OVdYZkxsZkxZbmVBQ0ZFY205OXFtc3VnPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+ <br>
  
  - **_Equipment_**
  
@@ -431,4 +462,13 @@ namespace backpack
  
  >> 同理，同样需要配置，如下：
  
+ <br>
  
+ ![](http://imglf3.nosdn.127.net/img/S3F1ejdrdGNrNFh1blE5WmdVQmRGVjVxb2xwdlE5eVFkQzJlZERkWUdpN1JhWnl6djVoTmFRPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+ <br>
+
+--------
+
+# 演示视频
+
+[演示视频](http://v.youku.com/v_show/id_XMzY0NzUzNzAyMA==.html)
