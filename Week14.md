@@ -7,6 +7,9 @@
  
  # 构建场景
  - 场景分层
+ 
+ 
+ 
  - * UI层
  - - - 详情
 >> 该层包含一个`Panel`，该`Panel`挂载一张背景图，并且，其下包含一个 **_Package_** (`Panel`) 及一个 **_Equipment_** (`Panel`)。 `Package` 下包含9个 `Button` 对应9个装备栏。 `Equipment` 下包含3个 `Button` 对应3个穿戴装备（头盔、武器、足具）。<br>
@@ -46,6 +49,7 @@
 
  # 代码实现
  - 实现原理
+ >> 装备的信息全部存储在每一个 `Button` 里，每次传递数字，根据数字信息来判断该位置的装备。<br>
  >> 在装备栏放置物品，由鼠标点击来进行交互，如下：
  
  >> 代码如下：
@@ -97,4 +101,235 @@
             }
         }
  ```
+ 
+ - `EquipmentManager`管理器
+ >> 该类为控制器，控制整个场景的元素，调节玩家装备及鼠标信息。<br>
+ >> 如下：
+ 
+ ```
+        public MouseImage mouseImage;       //鼠标
+        private int hat = 0;                //头盔穿戴
+        private int hand = 0;               //武器
+        private int shoes = 0;              //足具
+ ```
+ 
+ - `MouseImage`鼠标信息
+ >> 该类包含鼠标信息，里面有当前鼠标选择的装备图片及装备类型。<br>
+ >> 如下：
+ 
+ ```
+        private EquipmentManager equipmentManager;
+        private Image mouseImage;
+        private int mouseType = 0;
+
+        public Sprite none;
+        public Sprite hat;
+        public Sprite hand;
+        public Sprite shoes;
+        public Color None;
+        public Color NotNone;
+        public Camera cam;
+ ```
+ 
+ --------
+ 
+ # 源代码挂载及参数设置
+ - **_MouseImage_**
+ 
+ ```
+ using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace backpack
+{
+    public class MouseImage : MonoBehaviour
+    {
+
+        private EquipmentManager equipmentManager;
+        private Image mouseImage;
+        private int mouseType = 0;
+
+        public Sprite none;
+        public Sprite hat;
+        public Sprite hand;
+        public Sprite shoes;
+        public Color None;
+        public Color NotNone;
+        public Camera cam;
+
+        void Awake()
+        {
+            equipmentManager = (EquipmentManager)FindObjectOfType(typeof(EquipmentManager));
+            //equipmentManeger.setMouse(this);
+            mouseImage = GetComponent<Image>();
+        }
+
+        public int getMouseType()
+        {
+            return mouseType;
+        }
+
+
+        public void setMouseType(int _mouseType)
+        {
+            mouseType = _mouseType;
+        }
+
+        void Update()
+        {
+            Debug.Log(mouseType);
+            if (mouseType == 0)
+            {
+                mouseImage.sprite = none;
+                mouseImage.color = None;
+            }
+            else if (mouseType == 1)
+            {
+                mouseImage.color = new Color(1, 1, 1, 1);
+                mouseImage.sprite = hat;
+            }
+            else if (mouseType == 2)
+            {
+                mouseImage.color = new Color(1, 1, 1, 1);
+                mouseImage.sprite = hand;
+            }
+            else if (mouseType == 3)
+            {
+                mouseImage.color = new Color(1, 1, 1, 1);
+                mouseImage.sprite = shoes;
+            }
+            transform.position = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+        }
+    }
+}
+ ```
+ 
+ >> 挂在UI层的mouseImage上。
+ 
+ - **_EquipmentManager_**
+ 
+ ```
+ using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace backpack
+{
+    public class EquipmentManager : MonoBehaviour
+    {
+        public MouseImage mouseImage;       //鼠标
+        private int hat = 0;                //头盔穿戴
+        private int hand = 0;               //武器
+        private int shoes = 0;              //足具
+
+        void Start()
+        {
+        }
+
+        public MouseImage getMouse()
+        {
+            return mouseImage;
+        }
+
+        public void reset()
+        {
+            hat = 0;
+            hand = 0;
+            shoes = 0;
+        }
+
+        public int getHat()
+        {
+            return hat;
+        }
+
+
+
+        public int getHand()
+        {
+            return hand;
+        }
+
+        public int getShoes()
+        {
+            return shoes;
+        }
+
+        public void setHat(int _hat)
+        {
+            hat = _hat;
+        }
+
+
+        public void setHand(int _hand)
+        {
+            hand = _hand;
+        }
+
+
+        public void setShoes(int _shoes)
+        {
+            shoes = _shoes;
+        }
+    }
+}
+ ```
+ 
+ >> 挂载在空对象上，配置成员变量 `mouseImage` <br>
+ >> 如图: 
+ 
+ 
+ - **_Package_**
+ 
+ ```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace backpack
+{
+    public class Package : MonoBehaviour
+    {
+
+        private EquipmentManager equipmentManager;
+        private Image packageImage;
+        public int mouse_type = 0; // 0->没有装备，1...有不同装备
+        public Sprite hair;
+        public Sprite weapon;
+        public Sprite foot;
+        public Sprite UISprite;
+
+        void Awake()
+        {
+            equipmentManager = (EquipmentManager)FindObjectOfType(typeof(EquipmentManager));
+            packageImage = GetComponent<Image>();
+        }
+
+        public void On_equip_Button()
+        {
+            int MouseType = equipmentManager.getMouse().getMouseType(); // 得到鼠标目前的mousetype
+            if (packageImage.sprite != UISprite && MouseType == 0) // 若鼠标没有图片在上面，并且bag的image不为空有装备，则取走bag_image的装备
+            {
+                Debug.Log(mouse_type);
+                packageImage.sprite = UISprite;
+                equipmentManager.getMouse().setMouseType(mouse_type); // 将当前装备的type给鼠标
+                mouse_type = 0; // 此背包的mousetype变为0，则当前背包啥都没有
+            }
+            else
+            {   // 若鼠标上有装备，设置装备
+                if (MouseType == 1) packageImage.sprite = hair;
+                else if (MouseType == 2) packageImage.sprite = weapon;
+                else if (MouseType == 3) packageImage.sprite = foot;
+                mouse_type = MouseType; // mousetype变为鼠标的mousetype
+                equipmentManager.getMouse().setMouseType(0); // 鼠标装备消失
+            }
+        }
+    }
+}
+ ```
+ 
+ >> 
  
