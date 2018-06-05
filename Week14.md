@@ -8,7 +8,10 @@
  # 构建场景
  - 场景分层
  
+ <br>
  
+ ![](http://imglf3.nosdn.127.net/img/S3F1ejdrdGNrNFh1blE5WmdVQmRGVkU0Qys4VStxY1pCUFl2ZnlVNmxWa01kNlRydzBFT2F3PT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+ <br>
  
  - * UI层
  - - - 详情
@@ -18,10 +21,25 @@
 >> 先添加9个 `Button`，分别修改 `Text` 为正确名称。<br>
 >> 给 `Package` 添加 `Grid Layout Group`， 易于分层。设置长度，每个`Button` 所占空间、间隔，排列方式等属性，如下图：<br>
 
+<br>
+
+![](http://imglf6.nosdn.127.net/img/S3F1ejdrdGNrNFh1blE5WmdVQmRGUURvOTBLbUsyUGtUZUxicVlRMFYxYVNTZXpwaGFZQXBRPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+<br>
+
  - - - `Equipment`装备栏
 >> 类似于 `Package`，设置参数如下：<br>
 
+<br>
+
+![](http://imglf4.nosdn.127.net/img/S3F1ejdrdGNrNFh1blE5WmdVQmRGYXhRcDdBRGwyMDEwTUh6dGNlZkhodHMxc0loaFQrRjRRPT0.png?imageView&thumbnail=500x0&quality=96&stripmeta=0)
+<br>
+
  - - - 效果图
+ 
+ <br>
+ 
+ ![]()
+ <br>
  
  - - - `UICamera`
  >> 设置参数并将该相机挂在在 `Canvas` 上。
@@ -331,5 +349,86 @@ namespace backpack
 }
  ```
  
- >> 
+ >> 注意，该脚本需要挂载在每一个装备栏下，并且需要配置参数，配置事件，将装备图片配置好，并配置其他参数。将前三个装备栏放上装备。<br>
+ >> 如下：
+ 
+ 
+ - **_Equipment_**
+ 
+ ```
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace backpack
+{
+    public class Equipment : MonoBehaviour
+    {
+
+        // Use this for initialization
+        private EquipmentManager equipmentManager;
+        private Image equipImage;
+        public int mouse_type;
+        public Sprite weapon; // 为此背包中相应的装备
+        public Sprite UISprite;
+
+        void Awake()
+        {
+            equipmentManager = (EquipmentManager)FindObjectOfType(typeof(EquipmentManager));
+            equipImage = GetComponent<Image>();
+        }
+
+        public void On_equip_Button()
+        {
+            int MouseType = equipmentManager.getMouse().getMouseType(); // 得到鼠标上的mousetype
+            if (equipImage.sprite == weapon && MouseType == 0) // 取走装备区装备，当装备区含有装备并且mousetype=0鼠标上没有装备
+            {
+                equipImage.sprite = UISprite;
+                equipmentManager.getMouse().setMouseType(mouse_type);
+            }
+            else
+            {
+                if (mouse_type == MouseType && equipImage.sprite != weapon)
+                {
+                    // 将装备佩戴到装备区中
+                    equipImage.sprite = weapon;
+                    mouse_type = MouseType;
+                    equipmentManager.getMouse().setMouseType(0);
+                }
+            }
+        }
+
+        // Use this for initialization
+        void Start()
+        {
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            // 防止重复装备
+            if (mouse_type == 1 && equipmentManager.getHat() == 1)
+            {
+                equipmentManager.setHat(0); //已装备
+                equipImage.sprite = weapon;
+            }
+            else if (mouse_type == 2 && equipmentManager.getHand() == 1)
+            {
+                equipmentManager.setHand(0);
+                equipImage.sprite = weapon;
+            }
+            else if (mouse_type == 3 && equipmentManager.getShoes() == 1)
+            {
+                equipmentManager.setShoes(0);
+                equipImage.sprite = weapon;
+            }
+        }
+    }
+}
+ ```
+ 
+ >> 同理，同样需要配置，如下：
+ 
  
