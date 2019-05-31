@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attack Disk.Plugins", "Attack Disk.Plugins.csproj", "{F39B38BA-CB2F-7B40-F31B-19F8C3E916B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attack Disk", "Attack Disk.csproj", "{98C945BF-BF95-620B-87B1-3F4875070849}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Attack Disk.Editor.Plugins", "Attack Disk.Editor.Plugins.csproj", "{FB482998-4B2E-C50C-AD94-AC27EDF38BCB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F39B38BA-CB2F-7B40-F31B-19F8C3E916B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F39B38BA-CB2F-7B40-F31B-19F8C3E916B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F39B38BA-CB2F-7B40-F31B-19F8C3E916B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F39B38BA-CB2F-7B40-F31B-19F8C3E916B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98C945BF-BF95-620B-87B1-3F4875070849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98C945BF-BF95-620B-87B1-3F4875070849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98C945BF-BF95-620B-87B1-3F4875070849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98C945BF-BF95-620B-87B1-3F4875070849}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB482998-4B2E-C50C-AD94-AC27EDF38BCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB482998-4B2E-C50C-AD94-AC27EDF38BCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB482998-4B2E-C50C-AD94-AC27EDF38BCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB482998-4B2E-C50C-AD94-AC27EDF38BCB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
